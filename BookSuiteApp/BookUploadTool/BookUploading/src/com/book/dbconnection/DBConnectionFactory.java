@@ -35,6 +35,8 @@ public class DBConnectionFactory
                 prop.getProperty("url"),
                 prop.getProperty("user"),
                 prop.getProperty("password"));
+        
+        System.out.println(con.getCatalog());
 
         return con;
             
