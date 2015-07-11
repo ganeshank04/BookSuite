@@ -37,6 +37,8 @@ public class DBConnectionFactory
                 prop.getProperty("password"));
         
         System.out.println(con.getCatalog());
+		System.out.println(con.getCatalog());
+		
 
         return con;
             
