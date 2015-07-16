@@ -3,7 +3,6 @@ package com.book.service.impl;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.ListIterator;
 import java.util.Properties;
 
 import jxl.Cell;
@@ -22,20 +21,18 @@ public class BookServiceImp implements BookReadSevice {
 
 	private ArrayList<BookVo> bookList = new ArrayList<BookVo>();
 
-	
-
 	// reading excel
-
-	public void read(String inputFile) throws IOException {
+	@Override
+	public ArrayList<BookVo> readBookDetails(String inputFile) throws IOException {
 		String auther = null;
 		String description = null;
 		String publisher = null;
 		String category = null;
 		String keyWord = null;
 		String title = null;
-		
-		Properties prop   = PropertyReader.getPropertyInstance(inputFile);	
-		this.inputFile = prop.getProperty("src");
+
+		Properties prop = PropertyReader.getPropertyInstance(inputFile);
+		this.inputFile = prop.getProperty("book.excel.path");
 
 		FileInputStream inputWorkbook = new FileInputStream(this.inputFile);
 		Workbook w; // from jxlapi
@@ -66,16 +63,16 @@ public class BookServiceImp implements BookReadSevice {
 				}
 				setBookInfo(title, auther, publisher, category, description,
 						keyWord);
+				
 			}
 
 		} catch (BiffException e) {
 			e.printStackTrace();
 		}
+		return bookList;
 	}
 
-	
-	@Override
-	public void setBookInfo(String title, String auther, String publisher,
+	private void setBookInfo(String title, String auther, String publisher,
 			String category, String Description, String keyWord) {
 		BookVo b = new BookVo();
 		b.title = title;
@@ -86,29 +83,5 @@ public class BookServiceImp implements BookReadSevice {
 		b.keyWord = keyWord;
 		bookList.add(b);
 
-	}
-
-	
-	@Override
-	public ArrayList<BookVo> getBookInfo() {
-		// TODO Auto-generated method stub
-		return bookList;
-	}
-
-	public void display(ArrayList<BookVo> b) {
-		System.out.printf("%-30s%-30s%-30s%-30s%-30s%-30s\n", "Book Name",
-				" Auther", " Publisher", "" + " category", " Description",
-				" KeyWord");
-		// ArrayList<Book> b= test.getBookInfo();
-		ListIterator<BookVo> litr = b.listIterator();
-
-		while (litr.hasNext()) {
-			BookVo book = litr.next();
-			System.out.printf("%-30s%-30s%-30s%-30s%-30s%-30s\n",
-					book.getTitle(), book.getAuther(), book.getPublisher(),
-					book.getCategory(), book.getDescription(),
-					book.getKeyWord());
-
-		}
 	}
 }

@@ -10,30 +10,20 @@ import com.book.reader.PropertyReader;
  *  Connection between Database and DBProperties File.
  *  
  */
-public class DBConnectionFactory
-{
-	
-	
-/*
- * Creation of Method getConnection for Reading the 
- *  Properties File.
- */
-    public static Connection getConnection() throws Exception
-    {
-    	Properties    prop;
-       
-    	    prop = PropertyReader.getPropertyInstance("src/com/book/properties/DBProperty.properties");
-    	    Class.forName(prop.getProperty("driverclass"));
-        Connection con = DriverManager.getConnection(
-                prop.getProperty("url"),
-                prop.getProperty("username"),
-                prop.getProperty("password"));
-        
-        System.out.println(con.getCatalog());
-		System.out.println(con.getCatalog());
-		
+public class DBConnectionFactory {
 
-        return con;
-            
-    }
+	/*
+	 * Creation of Method getConnection for Reading the Properties File.
+	 */
+	public static Connection getConnection() throws Exception {
+		Properties prop;
+
+		prop = PropertyReader
+				.getPropertyInstance("src/com/book/properties/DBProperty.properties");
+		Class.forName(prop.getProperty("db.driverclass"));
+		Connection con = DriverManager.getConnection(prop.getProperty("db.url"),
+				prop.getProperty("db.username"), prop.getProperty("db.password"));
+
+		return con;
+	}
 }

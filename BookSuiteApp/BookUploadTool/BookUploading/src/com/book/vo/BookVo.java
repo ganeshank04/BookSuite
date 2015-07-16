@@ -1,5 +1,9 @@
 package com.book.vo;
 
+/**
+ * @Author Chandraprakash
+ */
+
 public class BookVo {
 	public String title;
 	public String auther;

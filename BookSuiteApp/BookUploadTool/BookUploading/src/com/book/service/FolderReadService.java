@@ -2,7 +2,6 @@ package com.book.service;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.ListIterator;
 
 public class FolderReadService {
 	public ArrayList<String> getMedia() {
@@ -19,10 +18,7 @@ public class FolderReadService {
 				list.add(listOfFiles[i].getName());
 
 			}
-
 		}
 		return (list);
 	}
-
-	
 }
