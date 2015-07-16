@@ -1,19 +1,19 @@
 package com.book.service.impl;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.ListIterator;
 import java.util.Properties;
 
-import com.book.service.BookReadSevice;
-import com.book.vo.BookVo;
-
 import jxl.Cell;
 import jxl.Sheet;
 import jxl.Workbook;
 import jxl.read.biff.BiffException;
+
+import com.book.reader.PropertyReader;
+import com.book.service.BookReadSevice;
+import com.book.vo.BookVo;
 
 public class BookServiceImp implements BookReadSevice {
 
@@ -22,32 +22,22 @@ public class BookServiceImp implements BookReadSevice {
 
 	private ArrayList<BookVo> bookList = new ArrayList<BookVo>();
 
-	public void setInputFile(String inputFile) {
-		try {
-
-			FileInputStream file = new FileInputStream(inputFile);
-			Properties prop = new Properties();
-			prop.load(file);
-			file.close();
-			this.inputFile = prop.getProperty("src");
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+	
 
 	// reading excel
 
-	public void read() throws IOException {
-
+	public void read(String inputFile) throws IOException {
 		String auther = null;
 		String description = null;
 		String publisher = null;
 		String category = null;
 		String keyWord = null;
 		String title = null;
+		
+		Properties prop   = PropertyReader.getPropertyInstance(inputFile);	
+		this.inputFile = prop.getProperty("src");
 
-		File inputWorkbook = new File(inputFile);
+		FileInputStream inputWorkbook = new FileInputStream(this.inputFile);
 		Workbook w; // from jxlapi
 		try {
 			w = Workbook.getWorkbook(inputWorkbook);
@@ -83,6 +73,7 @@ public class BookServiceImp implements BookReadSevice {
 		}
 	}
 
+	
 	@Override
 	public void setBookInfo(String title, String auther, String publisher,
 			String category, String Description, String keyWord) {
@@ -97,6 +88,7 @@ public class BookServiceImp implements BookReadSevice {
 
 	}
 
+	
 	@Override
 	public ArrayList<BookVo> getBookInfo() {
 		// TODO Auto-generated method stub

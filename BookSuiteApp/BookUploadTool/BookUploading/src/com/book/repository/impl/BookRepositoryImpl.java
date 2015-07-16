@@ -24,14 +24,15 @@ public class BookRepositoryImpl implements BookRepository {
 			st = con.createStatement();
 			xl = new BookServiceImp();
 			// xl.setInputFile("");
-			xl.setInputFile("src/bookexcel.properties");
-			xl.read();
+			//xl.setInputFile("src/bookexcel.properties");
+			xl.read("src/com/book/properties/bookexcel.properties");
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
+	
 	@Override
 	public void setCategory() {
 		// TODO Auto-generated method stub
