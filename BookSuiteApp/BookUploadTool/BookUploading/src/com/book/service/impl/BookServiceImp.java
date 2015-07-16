@@ -11,10 +11,10 @@ import jxl.Workbook;
 import jxl.read.biff.BiffException;
 
 import com.book.reader.PropertyReader;
-import com.book.service.BookReadSevice;
+import com.book.service.BookSevice;
 import com.book.vo.BookVo;
 
-public class BookServiceImp implements BookReadSevice {
+public class BookServiceImp implements BookSevice {
 
 	// for input file name
 	private String inputFile;

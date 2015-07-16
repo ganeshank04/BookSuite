@@ -1,5 +1,7 @@
 package com.book.abstractfactory;
 
-public abstract class ServiceAbstractFactory {
+import com.book.service.BookSevice;
 
+public abstract class ServiceAbstractFactory {
+	public abstract BookSevice getBookService();
 }
