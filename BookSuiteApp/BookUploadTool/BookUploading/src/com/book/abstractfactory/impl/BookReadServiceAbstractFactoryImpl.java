@@ -1,6 +1,6 @@
 package com.book.abstractfactory.impl;
 
-import AbstractFactory.ServiceAbstractFactory;
+import com.book.abstractfactory.ServiceAbstractFactory;
 
 public class BookReadServiceAbstractFactoryImpl extends ServiceAbstractFactory {
 
