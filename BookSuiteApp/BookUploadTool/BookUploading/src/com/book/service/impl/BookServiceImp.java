@@ -23,14 +23,15 @@ public class BookServiceImp implements BookSevice {
 
 	// reading excel
 	@Override
-	public ArrayList<BookVo> readBookDetails(String inputFile) throws IOException {
+	public ArrayList<BookVo> readBookDetails(String inputFile)
+			throws IOException {
 		String auther = null;
 		String description = null;
 		String publisher = null;
 		String category = null;
-		String keyWord = null;
+		Integer keyWord = null;
 		String title = null;
-
+		Boolean checkvalidity = true;
 		Properties prop = PropertyReader.getPropertyInstance(inputFile);
 		this.inputFile = prop.getProperty("book.excel.path");
 
@@ -43,44 +44,78 @@ public class BookServiceImp implements BookSevice {
 			Sheet sheet = w.getSheet(0);
 
 			// loop for firt 5 column and lines
-			int columns = sheet.getColumns();
-			int rows = sheet.getRows();
-			for (int i = 1; i < rows; i++) {
-				for (int j = 0; j < columns; j++) {
-					Cell cell = sheet.getCell(j, i);
-					if (j == 0)
-						title = cell.getContents();
-					else if (j == 1)
-						auther = cell.getContents();
-					else if (j == 2)
-						publisher = cell.getContents();
-					else if (j == 3)
-						category = cell.getContents();
-					else if (j == 4)
-						description = cell.getContents();
-					else if (j == 5)
-						keyWord = cell.getContents();
+
+			int totalRows = sheet.getRows();
+			int totalColmns = sheet.getColumns();
+			
+			if (totalColmns < 6 && totalRows <= 0) {
+				checkvalidity = false;
+
+			} else {
+
+				for (int i = 1; (i < totalRows && checkvalidity); i++) {
+					int j = 0;
+					while (j < totalColmns && checkvalidity) {
+						Cell cell = sheet.getCell(j, i);
+						    
+						if (j == 0) {
+							title = cell.getContents();
+							    if (title.trim().isEmpty())
+								     checkvalidity = false;
+						} else if (j == 1) {
+							auther = cell.getContents();
+							if (auther.trim().isEmpty())
+								checkvalidity = false;
+						} else if (j == 2) {
+							publisher = cell.getContents();
+							if (publisher.trim().isEmpty())
+								checkvalidity = false;
+						} else if (j == 3) {
+							category = cell.getContents();
+							if (category.trim().isEmpty())
+								checkvalidity = false;
+						} else if (j == 4) {
+							description = cell.getContents();
+							if (description.trim().isEmpty())
+								checkvalidity = false;
+						} else if (j == 5) {
+							String nm= cell.getContents();
+							if (nm.trim().isEmpty())
+								checkvalidity = false;
+							else
+								keyWord = Integer.parseInt(nm);
+							
+							
+						}
+						j++;
+					}
+
+						if (checkvalidity == true)
+							setBookInfo(title, auther, publisher, category,
+									description, keyWord);
+
+					}
 				}
-				setBookInfo(title, auther, publisher, category, description,
-						keyWord);
-				
-			}
+			
 
 		} catch (BiffException e) {
 			e.printStackTrace();
 		}
+    if(checkvalidity == true)
 		return bookList;
+    else
+    	return null;
 	}
 
 	private void setBookInfo(String title, String auther, String publisher,
-			String category, String Description, String keyWord) {
+			String category, String Description, Integer keyWord) {
 		BookVo b = new BookVo();
 		b.title = title;
 		b.auther = auther;
 		b.publisher = publisher;
 		b.category = category;
 		b.Description = Description;
-		b.keyWord = keyWord;
+		b.bookNumber = keyWord;
 		bookList.add(b);
 
 	}
