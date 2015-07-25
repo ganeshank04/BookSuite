@@ -10,7 +10,7 @@ public class BookVo {
 	public String publisher;
 	public String category;
 	public String Description;
-	public String keyWord;
+	public Integer bookNumber;
 
 	/**
 	 * @return the title
@@ -50,8 +50,8 @@ public class BookVo {
 	/**
 	 * @return the keyWord
 	 */
-	public String getKeyWord() {
-		return keyWord;
+	public Integer getBookNumber() {
+		return bookNumber;
 	}
 
 }
