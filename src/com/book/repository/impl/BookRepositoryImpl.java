@@ -51,9 +51,7 @@ public class BookRepositoryImpl implements BookRepository {
 
 			// set auto commit false
 			con.setAutoCommit(false);
-			// st.executeUpdate(sql4);
-			// ResultSet res = st.executeQuery(sql3);
-			// set variables
+
 			ListIterator<BookVo> list = bookList.listIterator();
 			java.sql.Timestamp timestamp = getCurrentJavaSqlTimestamp();
 			while (list.hasNext()) {

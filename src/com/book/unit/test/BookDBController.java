@@ -2,6 +2,7 @@ package com.book.unit.test;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.ListIterator;
 
 import com.book.abstractfactory.ServiceAbstractFactory;
 import com.book.factory.producer.FactoryProducer;
@@ -22,12 +23,26 @@ public class BookDBController {
 		try {
 			bookList = bookService
 					.readBookDetails("src/com/book/properties/bookexcel.properties");
+			System.out.printf("%-30s%-30s%-30s%-30s%-30s%-30s\n", "Book Name",
+					" Auther", " Publisher", "" + " category", " Description",
+					" book number");
+			// ArrayList<Book> b= test.getBookInfo();
+			ListIterator<BookVo> litr = bookList.listIterator();
+
+			while (litr.hasNext()) {
+				BookVo book = litr.next();
+				System.out.printf("%-30s%-30s%-30s%-30s%-30s%-30s\n",
+						book.getTitle(), book.getAuther(), book.getPublisher(),
+						book.getCategory(), book.getDescription(),
+						book.getBookNumber());
+
+			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-		enq.insertBookRecord(bookList);
+		// enq.insertBookRecord(bookList);
 	}
 
 }
