@@ -4,17 +4,19 @@ import com.book.abstractfactory.ServiceAbstractFactory;
 import com.book.service.BookSevice;
 import com.book.service.CopyFileService;
 import com.book.service.FolderService;
-import com.book.service.impl.BookServiceImp;
+import com.book.service.impl.FolderServiceImpl;
 
-public class BookServiceAbstractFactoryImpl extends ServiceAbstractFactory {
+public class FolderServiceAbstractFactoryImpl extends ServiceAbstractFactory {
+
 	@Override
 	public BookSevice getBookService() {
-		return new BookServiceImp();
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
 	public FolderService getFolderService() {
-		return null;
+		return new FolderServiceImpl();
 	}
 
 	@Override
@@ -22,4 +24,5 @@ public class BookServiceAbstractFactoryImpl extends ServiceAbstractFactory {
 		// TODO Auto-generated method stub
 		return null;
 	}
+  
 }
